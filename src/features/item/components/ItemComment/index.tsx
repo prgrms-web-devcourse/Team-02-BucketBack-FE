@@ -8,7 +8,7 @@ import {
 } from '@/shared/components';
 import { Review } from '@/shared/types';
 import { Container, ProfileWrapper, ContentsWrapper, InteractPanel } from './style';
-import useDeleteReview from '@/features/review/hooks/useDeleteReview';
+import { useDeleteReview } from '@/features/review/hooks';
 
 export interface ItemCommentProps {
   content: Review['content'];
