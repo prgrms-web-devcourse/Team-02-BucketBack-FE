@@ -32,5 +32,5 @@ export interface PutEditReviewItemRequest {
 
 export interface DeleteReviewItemRequest {
   itemId: number;
-  reviewId: string;
+  reviewId: number;
 }

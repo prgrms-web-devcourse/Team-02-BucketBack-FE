@@ -8,6 +8,7 @@ import {
 } from '@/shared/components';
 import { Review } from '@/shared/types';
 import { Container, ProfileWrapper, ContentsWrapper, InteractPanel } from './style';
+import useDeleteReview from '@/features/review/hooks/useDeleteReview';
 
 export interface ItemCommentProps {
   content: Review['content'];
@@ -15,14 +16,33 @@ export interface ItemCommentProps {
   memberInfo: Review['memberInfo'];
   rate: Review['rate'];
   reviewId: Review['reviewId'];
+  itemId: string;
 }
 
-const ItemComment = ({ content, createAt, memberInfo, rate }: ItemCommentProps) => {
+const ItemComment = ({
+  content,
+  createAt,
+  memberInfo,
+  rate,
+  reviewId,
+  itemId,
+}: ItemCommentProps) => {
+  const { mutate: reviewDeleteMutate } = useDeleteReview();
+
+  const handleDeleteClick = () => {
+    reviewDeleteMutate({ itemId: Number(itemId), reviewId: reviewId });
+  };
+
   return (
     <Container>
       <ProfileWrapper>
         <Profile nickname={memberInfo.nickName} levelNumber={2} src={memberInfo.profileImage} />
-        <CommonMenu type="update" iconSize="0.25rem" onDelete={() => {}} onUpdate={() => {}} />
+        <CommonMenu
+          type="update"
+          iconSize="0.25rem"
+          onDelete={handleDeleteClick}
+          onUpdate={() => {}}
+        />
       </ProfileWrapper>
       <ContentsWrapper>
         <CommonText type="smallInfo">{content}</CommonText>
@@ -30,7 +50,6 @@ const ItemComment = ({ content, createAt, memberInfo, rate }: ItemCommentProps) 
       <ContentsWrapper>
         <DateText createdDate={createAt} />
         <InteractPanel>
-          {/* 본인이 클릭했다면 채워주기 */}
           <CommonIcon type="heart" size="0.75rem" />
           <CommonText type="smallInfo">{rate}</CommonText>
           <CommonButton type="xsText">좋아요</CommonButton>

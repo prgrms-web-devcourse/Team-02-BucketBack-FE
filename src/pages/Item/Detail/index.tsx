@@ -132,6 +132,7 @@ const ItemDetail = () => {
                 memberInfo={memberInfo}
                 rate={rate}
                 reviewId={reviewId}
+                itemId={itemId!}
               />
               <CommonDivider size="sm" />
             </Fragment>
