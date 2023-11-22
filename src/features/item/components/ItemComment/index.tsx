@@ -17,7 +17,7 @@ export interface ItemCommentProps {
   memberInfo: Review['memberInfo'];
   rate: Review['rate'];
   reviewId: Review['reviewId'];
-  itemId: string;
+  itemId?: string;
 }
 
 const ItemComment = ({
