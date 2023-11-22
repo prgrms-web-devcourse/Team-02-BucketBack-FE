@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   CommonButton,
   CommonIcon,
@@ -27,10 +28,15 @@ const ItemComment = ({
   reviewId,
   itemId,
 }: ItemCommentProps) => {
+  const navigate = useNavigate();
   const { mutate: reviewDeleteMutate } = useDeleteReview();
 
   const handleDeleteClick = () => {
     reviewDeleteMutate({ itemId: Number(itemId), reviewId: reviewId });
+  };
+
+  const handleEditClick = () => {
+    navigate(`/review/${reviewId}/edit`);
   };
 
   return (
@@ -41,11 +47,13 @@ const ItemComment = ({
           type="update"
           iconSize="0.25rem"
           onDelete={handleDeleteClick}
-          onUpdate={() => {}}
+          onUpdate={handleEditClick}
         />
       </ProfileWrapper>
       <ContentsWrapper>
-        <CommonText type="smallInfo">{content}</CommonText>
+        <CommonText type="smallInfo" noOfLines={3}>
+          {content}
+        </CommonText>
       </ContentsWrapper>
       <ContentsWrapper>
         <DateText createdDate={createAt} />
